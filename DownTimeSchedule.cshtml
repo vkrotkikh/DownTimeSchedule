@@ -1,0 +1,153 @@
+
+<script id="ScheduleDowntimeScreenTemplate" type="text/x-jQuery-tmpl">
+    <div class="tabs-body" id="divScheduleDowntime">
+        <div class="data-block">
+            <div class="data-header">
+                <ul class="data-menu">
+                    <li><a href="javascript: void(0);" class="add-row"><i class=" ico-calendar icons-data icons-data"></i>Schedule Downtime</a></li>
+                </ul>
+                <h2>Schedule Downtime</h2>
+            </div>
+            <div class="data-body linear-body no-paging">
+                <table class="data-table linear-table schedule-downtime" name="tblScheduleDowntime">
+                    <tr class="linear-header">
+                        <td><label>Status</label></td>
+                        <td><label>Schedule Start Time <i class="table-default-sort-down-arrow "></i></label></td>
+                        <td><label>Schedule End Time</label></td>
+                        <td><label>Created By</label></td>
+                        <td><label>Created On</label></td>
+                        <td><label>Notes</label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="ScheduleDowntimeTableRecordsTemplate" type="text/x-jQuery-tmpl">
+    {{for}}
+    <tr class="linear-info-row" data-id="{{:SystemDowntimeSchedule_Id}}">
+        <td><input type="text" disabled="" class="disabled" value="{{:~GetDowntimeScheduleStatus(#view.data)}}" /></td>
+        <td><input type="text" disabled="" class="disabled" value="{{:~ConvertAndFormatUTCToLocal(ScheduleStartOn)}}" /></td>
+        <td><input type="text" disabled="" class="disabled" value="{{:~ConvertAndFormatUTCToLocal(ScheduleEndOn)}}" /></td>
+        <td><input type="text" disabled="" class="disabled" value="{{:CreatedBy}}" /></td>
+        <td><input type="text" disabled="" class="disabled" value="{{:~ConvertAndFormatUTCToLocal(CreatedOn)}}" /></td>
+        <td><input type="text" name="Note" autocomplete="false" value="{{:Note}}" /></td>
+        <td>
+            {{if ~GetDowntimeScheduleStatus(#view.data) == "Scheduled"}}
+            <div class="row-controls">
+                <div class="row-controls-wrapper -p-6">
+                    <i class="ico-arrow-back popup-icons -hover-icon js-cancel-schedule -margin-0" title="Cancel Schedule"></i>
+                </div>
+            </div>
+            {{/if}}
+        </td>
+    </tr>
+    {{/for}}
+</script>
+
+
+
+<script id="ScheduleDowntimeCreateShedulePopupTemplate" type="text/x-jQuery-tmpl">
+    <div class="popup schedule-downtime -overlay-fixed" id="popup_1" style="display: block;">
+        <a href="javascript: void(0);" class="popup-close popup-cross"></a>
+        <div class="hidden-popup schedule-downtime" style="display: block;">
+            <h1 class="popup-title">Create Downtime Schedule</h1>
+            <div class="popup-subtitle"></div>
+            <div class="popup-body">
+                <div class="popup-content">
+                    <table class="section-table">
+                        <tr>
+                            <td>
+                                <label>
+                                    <span>Schedule Start Time</span>
+                                    <div class="calendar-container cf">
+                                        <i class="ico-calendar icons-data calendar-form"></i>
+                                        <input type="text" name="ScheduleStartTime" autocomplete="false" maxlength="40" />
+                                    </div>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    <span>Schedule End Time</span>
+                                    <div class="calendar-container cf">
+                                        <i class="ico-calendar icons-data calendar-form"></i>
+                                        <input type="text" name="ScheduleEndTime" autocomplete="false" maxlength="40" />
+                                    </div>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    <span>Notes</span>
+                                    <textarea class="simple_area" name="Notes"></textarea>
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="popup-footer cf">
+                    <div class="button-row">
+                        <button class="btn orange-btn default-button" name="submit-popup">Add</button>
+                        <button class="btn black-btn popup-close">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" style="width: 100%; height: 100%;"></div>
+</script>
+
+
+<script id="ScheduleDowntimeCancelSchedulePopupTemplate" type="text/x-jQuery-tmpl">
+    <div class="popup cancel-schedule-downtime -overlay-fixed" style="display: block;" id="ScheduleDowntimeCancelShedulePopup">
+        <a href="javascript: void(0);" class="popup-close popup-cross"></a>
+        <div class="hidden-popup cancel-schedule-downtime" style="display: block;">
+            <h1 class="popup-title">Cancel Downtime Schedule</h1>
+            <div class="popup-subtitle"></div>
+            <div class="popup-body">
+                <div class="popup-content">
+                    <table class="section-table">
+                        <tr>
+                            <td>
+                                <label class="disabled">
+                                    <span>Schedule Start Time</span>
+                                    <input type="text" disabled="" class="disabled" name="ScheduleStartOn" value="{{:ScheduleStartOn}}" />
+                                </label>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="disabled">
+                                    <span>Schedule End Time</span>
+                                    <input type="text" disabled="" class="disabled" name="ScheduleEndOn" value="{{:ScheduleEndOn}}">
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="disabled">
+                                    <span>Notes</span>
+                                    <textarea disabled="disabled" name="Note">{{:Note}}</textarea>
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="popup-footer cf">
+                    <div class="button-row">
+                        <button class="btn orange-btn default-button" name="submit-popup">Confirm</button>
+                        <button class="btn black-btn popup-close">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" style="width: 100%; height: 100%;"></div>
+</script>
